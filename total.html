@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>totel price</title>
+</head>
+<body>
+    <h2>totel </h2>
+
+
+    <script>
+
+function confirmCart() {
+    const cartItems = document.querySelectorAll('#cart-items li');
+    if (cartItems.length === 0) {
+    alert('Корзина пуста!');
+    return;
+}
+    let items = [];
+    let totalPrice = 0;
+
+    // Собираем данные о продуктах
+    cartItems.forEach(item => {
+        const productName = item.querySelector('.product-name').textContent;
+        const productPrice = parseFloat(item.querySelector('.product-price').textContent.replace('$', ''));
+        const productQuantity = parseInt(item.querySelector('.product-quantity').textContent);
+
+        items.push({
+            name: productName,
+            price: productPrice,
+            quantity: productQuantity,
+            total: (productPrice * productQuantity).toFixed(2),
+        });
+
+        totalPrice += productPrice * productQuantity;
+    });
+
+    // Формируем сообщение
+    const message = generateMessage(items, totalPrice);
+
+    // Отправляем данные в Telegram
+    sendToTelegram(message);
+}
+console.log(cartItems)
+
+
+
+    </script>
+</body>
+</html>
